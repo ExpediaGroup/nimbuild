@@ -1,0 +1,82 @@
+{
+    "name": "@vrbo/nimbuild-webpack",
+    "version": "0.0.0",
+    "description": "Library that provides nimbuild webpack bundling at runtime",
+    "license": "MIT",
+    "author": {
+        "name": "Expedia Group",
+        "email": "oss@expediagroup.com"
+    },
+    "contributors": [
+        "neenhouse"
+    ],
+    "main": "lib/index.js",
+    "scripts": {
+        "coverage": "nyc report --reporter=text-lcov | coveralls",
+        "test": "npm run test:lint && npm run test:unit",
+        "test:lint": "eslint --color lib/**/*.js",
+        "test:unit": "jest --coverage lib/**/*.test.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vrbo/nimbuild-webpack.git"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "bugs": {
+        "url": "https://github.com/vrbo/nimbuild-webpack/issues"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    },
+    "nyc": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100,
+        "exclude": [
+            "setup.js",
+            "lib/**/tests/*.js",
+            "lib/**/mocks/*.js"
+        ],
+        "colors": true,
+        "reporter": [
+            "text",
+            "text-summary",
+            "html"
+        ],
+        "instrument": false,
+        "sourceMap": false
+    },
+    "engines": {
+        "node": ">=10.0.0",
+        "npm": ">=6.0.0"
+    },
+    "keywords": [
+        "webpack",
+        "nimbuild",
+        "memoization"
+    ],
+    "dependencies": {
+        "lru-cache": "^5.1.1",
+        "memory-fs": "^0.4.1",
+        "object-hash": "^1.3.1",
+        "terser-webpack-plugin": "^1.4.1",
+        "webpack": "^4.39.2",
+        "webpack-bundle-analyzer": "^3.5.2",
+        "webpack-merge": "^4.2.1",
+        "webpack-visualizer-plugin": "^0.1.11"
+    },
+    "devDependencies": {
+        "babel-eslint": "^10.0.3",
+        "coveralls": "^3.0.6",
+        "eslint": "^6.6.0",
+        "eslint-plugin-prettier": "^3.1.1",
+        "jest": "^24.9.0",
+        "nyc": "^14.1.1",
+        "preact": "^8.5.2"
+    }
+}
