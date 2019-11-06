@@ -1,7 +1,7 @@
 # @vrbo/nimbuild-corejs
 
 [![NPM Version](https://img.shields.io/npm/v/@vrbo/nimbuild-corejs.svg?style=flat-square)](https://www.npmjs.com/package/@vrbo/nimbuild-corejs)
-[![Build Status](https://travis-ci.org/vrbo/nimbuild-corejs.svg?branch=master)](https://travis-ci.org/vrbo/nimbuild-corejs)
+[![Build Status](https://travis-ci.org/expediagroup/nimbuild.svg?branch=master)](https://travis-ci.org/expediagroup/nimbuild)
 
 Performant generation of coreJS polyfill bundles optimized for target browsers at runtime
 
