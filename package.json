@@ -3,8 +3,15 @@
     "private": true,
     "license": "MIT",
     "scripts": {
+        "boostrap": "lerna bootstrap",
         "build": "lerna run build",
-        "test": "lerna run test"
+        "clean": "rm -rf node_modules && npx lerna clean --yes",
+        "test": "lerna run test",
+        "version:patch": "lerna run version patch",
+        "version:minor": "lerna run version minor",
+        "updated": "lerna updated",
+        "prepare": "npm run bootstrap",
+        "publish": "lerna run publish"
     },
     "devDependencies": {
         "lerna": "^3.16.4"

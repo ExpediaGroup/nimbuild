@@ -1,6 +1,6 @@
 {
     "name": "@vrbo/nimbuild-corejs",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "Performant generation of coreJS polyfill bundles optimized for target browsers at runtime",
     "license": "MIT",
     "author": {
@@ -8,10 +8,12 @@
         "email": "oss@expediagroup.com"
     },
     "contributors": [
-        "neenhouse"
+        "neenhouse",
+        "underbyte"
     ],
     "main": "lib/index.js",
     "scripts": {
+        "build": "",
         "coverage": "nyc report --reporter=text-lcov | coveralls",
         "test": "npm run test:lint && npm run test:unit",
         "test:lint": "eslint --color lib/**/*.js",
@@ -19,13 +21,13 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/vrbo/nimbuild-corejs.git"
+        "url": "https://github.com/expediagroup/nimbuild.git"
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org"
     },
     "bugs": {
-        "url": "https://github.com/vrbo/nimbuild-corejs/issues"
+        "url": "https://github.com/expediagroup/nimbuild/issues"
     },
     "husky": {
         "hooks": {
@@ -62,7 +64,7 @@
         "corejs"
     ],
     "dependencies": {
-        "@vrbo/nimbuild-webpack": "0.0.1",
+        "@vrbo/nimbuild-webpack": "^0.0.1",
         "browserslist": "^4.7.2",
         "browserslist-useragent": "^3.0.2",
         "caniuse-api": "^3.0.0",
