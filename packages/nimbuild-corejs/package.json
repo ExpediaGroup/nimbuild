@@ -1,6 +1,6 @@
 {
     "name": "@vrbo/nimbuild-corejs",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Performant generation of coreJS polyfill bundles optimized for target browsers at runtime",
     "license": "MIT",
     "author": {

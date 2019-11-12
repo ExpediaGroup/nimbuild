@@ -20,7 +20,10 @@ npm install --save @vrbo/nimbuild-webpack
 Import module and prime cache
 
 ```javascript
-const webpacknimbuild = require('@vrbo/nimbuild-webpack')();
+const webpacknimbuild = require('@vrbo/nimbuild-webpack')({
+    webpackConfig: {...}, // customize webpack compiler
+    maxEntries: 100 // defaults to 0 for infinity
+});
 
 async function getBundleString() {
     const response = await webpacknimbuild.run({

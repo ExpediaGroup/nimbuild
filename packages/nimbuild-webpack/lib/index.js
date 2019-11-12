@@ -25,6 +25,9 @@ class WebpackNimbuild {
             }
         });
 
+        // default webpack config options
+        options.webpackConfig = options.webpackConfig || {};
+
         // Define terser plugin for asset compression
         this.terserPlugin = new TerserPlugin({
             terserOptions: {
@@ -53,23 +56,34 @@ class WebpackNimbuild {
         });
 
         // Use memory file system to access output of webpack
-        this.webpackConfiguration = {
-            output: {
-                path: '/',
-                filename: 'script.js',
-                pathinfo: false
+        this.webpackConfiguration = merge(
+            {
+                output: {
+                    path: '/',
+                    filename: 'script.js',
+                    pathinfo: false
+                },
+                node: {
+                    global: false,
+                    process: false,
+                    setImmediate: false
+                },
+                stats: 'none',
+                module: {
+                    rules: [
+                        {
+                            test: /\.(j|t)sx?$/,
+                            loader: 'babel-loader'
+                        }
+                    ]
+                },
+                optimization: {
+                    minimizer: [this.terserPlugin]
+                },
+                plugins: []
             },
-            node: {
-                global: false,
-                process: false,
-                setImmediate: false
-            },
-            stats: 'none',
-            optimization: {
-                minimizer: [this.terserPlugin]
-            },
-            plugins: []
-        };
+            options.webpackConfig
+        );
     }
     async analyze({entry, minify}) {
         // define path to report name
