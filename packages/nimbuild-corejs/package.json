@@ -64,7 +64,7 @@
         "corejs"
     ],
     "dependencies": {
-        "@vrbo/nimbuild-webpack": "^0.0.1",
+        "@vrbo/nimbuild-webpack": "^0.0.2",
         "browserslist": "^4.7.2",
         "browserslist-useragent": "^3.0.2",
         "caniuse-api": "^3.0.0",
