@@ -7,8 +7,8 @@
         "build": "lerna run build",
         "clean": "rm -rf node_modules && npx lerna clean --yes",
         "test": "lerna run test",
-        "version:patch": "lerna run version patch",
-        "version:minor": "lerna run version minor",
+        "version:patch": "lerna version patch",
+        "version:minor": "lerna version minor",
         "updated": "lerna updated",
         "prepare": "npm run bootstrap",
         "publish": "lerna run publish"

@@ -11,7 +11,7 @@ describe('module-resolver.js', () => {
         mockLogger = {
             log: jest.fn()
         };
-        const featureSet = getSupported('default', {log: () => {}});
+        const featureSet = getSupported('default', {log: console.log});
         include = featureSet.include;
         exclude = featureSet.exclude;
     });

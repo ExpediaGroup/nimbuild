@@ -69,14 +69,6 @@ class WebpackNimbuild {
                     setImmediate: false
                 },
                 stats: 'none',
-                module: {
-                    rules: [
-                        {
-                            test: /\.(j|t)sx?$/,
-                            loader: 'babel-loader'
-                        }
-                    ]
-                },
                 optimization: {
                     minimizer: [this.terserPlugin]
                 },
@@ -169,7 +161,7 @@ class WebpackNimbuild {
      * @param {array} entry - Paths to modules to build
      * @param {bool} minify - Boolean when true produces minimized build
      */
-    async run({entry, minify, modifyScript}) {
+    async run({entry, minify, modifyScript, ...rest}) {
         // If no given entry, immediately return
         if (!entry || (entry && entry.length === 0)) {
             return {
@@ -188,7 +180,8 @@ class WebpackNimbuild {
         // If not, create a webpack compiler given class configuration and arguments
         const config = merge(this.webpackConfiguration, {
             entry,
-            mode: minify ? 'production' : 'none'
+            mode: minify ? 'production' : 'none',
+            ...rest
         });
 
         // Create webpack compiler
