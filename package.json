@@ -10,7 +10,7 @@
         "version:patch": "lerna version patch",
         "version:minor": "lerna version minor",
         "updated": "lerna updated",
-        "prepare": "npm bootstrap",
+        "prepare": "lerna bootstrap",
         "publish": "lerna publish"
     },
     "devDependencies": {
