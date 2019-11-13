@@ -1,6 +1,6 @@
 {
     "name": "@vrbo/nimbuild-corejs",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Performant generation of coreJS polyfill bundles optimized for target browsers at runtime",
     "license": "MIT",
     "author": {
@@ -64,7 +64,7 @@
         "corejs"
     ],
     "dependencies": {
-        "@vrbo/nimbuild-webpack": "^0.0.2",
+        "@vrbo/nimbuild-webpack": "^0.0.3",
         "browserslist": "^4.7.2",
         "browserslist-useragent": "^3.0.2",
         "caniuse-api": "^3.0.0",
