@@ -33,7 +33,7 @@ describe('index.js', () => {
         mockLogger = {
             log: jest.fn()
         };
-        const featureSet = getSupported('default', {log: () => {}});
+        const featureSet = getSupported('default', {log: console.log});
         include = featureSet.include;
         exclude = featureSet.exclude;
     });
@@ -84,8 +84,9 @@ describe('index.js', () => {
             exclude,
             uaString: mockuas.ie11,
             minify: true,
-            logger: mockLogger
+            logger: console
         });
+        console.log('INSPECT', polyfills);
         expect(polyfills.entry).toMatchSnapshot();
         expect(polyfills.script.length).toBeGreaterThan(15000);
         expect(polyfills.script.length).toMatchSnapshot();
@@ -154,7 +155,7 @@ describe('index.js', () => {
     }, 1000);
 
     it('cache primes in less than 120 seconds', async (done) => {
-        const cacheLength = await primeCache({log: () => {}});
+        const cacheLength = await primeCache({log: console.log});
         expect(cacheLength).toEqual(88);
         done();
     }, 120000);

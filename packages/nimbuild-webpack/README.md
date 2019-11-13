@@ -38,6 +38,23 @@ async function getBundleString() {
 }
 ```
 
+Configure `nimbuild-webpack` to handle ES6+ source code
+
+```javascript
+const webpacknimbuild = require('@vrbo/nimbuild-webpack')({
+    webpackConfig: {
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    loader: 'babel-loader'
+                }
+            ]
+        }
+    }
+});
+```
+
 ## Development
 
 ### Starting development harness
