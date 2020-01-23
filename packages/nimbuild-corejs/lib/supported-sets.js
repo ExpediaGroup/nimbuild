@@ -1,7 +1,9 @@
 const modulesList = Object.keys(require('core-js-compat/data'));
 const hash = require('object-hash');
 
-const {LOG_ERROR} = require('./constants');
+const {
+    LOG_ERROR
+} = require('./constants');
 
 const supported = {
     default: {
@@ -73,7 +75,10 @@ function getSupported(featureSet, logger) {
  * @param {*} options.include - coreJS modules to include
  * @param {*} options.exclude - coreJS modules to exclude
  */
-function addSupported(featureSet, {include, exclude}) {
+function addSupported(featureSet, {
+    include,
+    exclude
+}) {
     // sanity check `features.include` and `features.exclude`
     if (!include || !exclude) {
         throw new Error(`Invalid feature set defined: "${featureSet}"`);
@@ -93,6 +98,7 @@ function addSupported(featureSet, {include, exclude}) {
  */
 function getAvailableCoreJSFeatures(include, exclude) {
     const featureSet = new Set();
+
     function filter(method, list) {
         for (const ns of list) {
             for (const name of modulesList) {
@@ -120,8 +126,15 @@ function getAvailableCoreJSFeatures(include, exclude) {
  * @param {array} config.exclude - Array of coreJS modules to exclude
  */
 const baseFeatureSetCache = {};
-function getBaseFeatureModules({include, exclude}) {
-    const cacheKey = hash({include, exclude});
+
+function getBaseFeatureModules({
+    include,
+    exclude
+}) {
+    const cacheKey = hash({
+        include,
+        exclude
+    });
     if (baseFeatureSetCache[cacheKey]) {
         return baseFeatureSetCache[cacheKey];
     }

@@ -3,7 +3,9 @@
 exports[`module-resolver.js Resolves chrome UA to list of coreJS modules 1`] = `
 Object {
   "corejs": Array [],
-  "normal": Array [],
+  "normal": Array [
+    "intersection-observer",
+  ],
 }
 `;
 
@@ -112,6 +114,7 @@ Object {
   ],
   "normal": Array [
     "whatwg-fetch",
+    "intersection-observer",
   ],
 }
 `;

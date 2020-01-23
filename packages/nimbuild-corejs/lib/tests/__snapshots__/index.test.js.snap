@@ -1,8 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index.js creates chrome corejs minified polyfills 1`] = `Array []`;
+exports[`index.js creates chrome corejs minified polyfills 1`] = `
+Array [
+  "intersection-observer",
+]
+`;
 
-exports[`index.js creates chrome corejs unminified polyfills 1`] = `Array []`;
+exports[`index.js creates chrome corejs unminified polyfills 1`] = `
+Array [
+  "intersection-observer",
+]
+`;
 
 exports[`index.js creates ie11 corejs minified polyflls 1`] = `
 Array [
@@ -106,10 +114,11 @@ Array [
   "core-js/modules/web.queue-microtask",
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
+  "intersection-observer",
 ]
 `;
 
-exports[`index.js creates ie11 corejs minified polyflls 2`] = `76970`;
+exports[`index.js creates ie11 corejs minified polyflls 2`] = `84001`;
 
 exports[`index.js handles UA not defined in browserlist 1`] = `undefined`;
 
@@ -232,6 +241,7 @@ Array [
   "core-js/modules/web.queue-microtask",
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
+  "intersection-observer",
 ]
 `;
 
@@ -354,6 +364,7 @@ Array [
   "core-js/modules/web.queue-microtask",
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
+  "intersection-observer",
 ]
 `;
 
@@ -386,6 +397,7 @@ Array [
   "core-js/modules/web.queue-microtask",
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
+  "intersection-observer",
 ]
 `;
 
@@ -508,6 +520,7 @@ Array [
   "core-js/modules/web.queue-microtask",
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
+  "intersection-observer",
 ]
 `;
 
@@ -630,6 +643,7 @@ Array [
   "core-js/modules/web.queue-microtask",
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
+  "intersection-observer",
 ]
 `;
 
@@ -727,5 +741,6 @@ Array [
   "core-js/modules/web.queue-microtask",
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
+  "intersection-observer",
 ]
 `;

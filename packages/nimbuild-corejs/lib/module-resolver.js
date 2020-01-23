@@ -1,20 +1,26 @@
 // 3rd party
 const compat = require('core-js-compat');
-const {resolveUserAgent} = require('browserslist-useragent');
+const {
+    resolveUserAgent
+} = require('browserslist-useragent');
 const caniuse = require('caniuse-api');
 
 // user
-const {LOG_INFO, LOG_WARNING} = require('./constants');
+const {
+    LOG_INFO,
+    LOG_WARNING
+} = require('./constants');
 const FALLBACK_TARGET_PLATFORM = 'defaults';
 
 /**
- * detectIfBrowserHasFetch()
- * Function when given a UA string, returns true if browser implements fetch
+ * detectIfBrowserHasFeature()
+ * Function when given a UA string, returns true if browser implements feature
  * @param {string} targetPlatform - browserlist query for target support
+ * @param {string} feature - polyfill feature
  */
-function detectIfBrowserHasFetch(targetPlatform) {
+function detectIfBrowserHasFeature(targetPlatform, feature) {
     // detect if fetch should be used
-    return caniuse.isSupported('fetch', targetPlatform);
+    return caniuse.isSupported(feature, targetPlatform);
 }
 
 /**
@@ -78,8 +84,15 @@ function getCoreJSModulesByPlatform({
  * @param {object} options.logger - Logging object to implement logging.  Requires a "log()" API
  * @param {string} options.uaString - User agent string of incoming HTTP logger.
  */
-function getCoreJSModulesByUserAgent({features, uaString, logger}) {
-    const {family, version} = resolveUserAgent(uaString);
+function getCoreJSModulesByUserAgent({
+    features,
+    uaString,
+    logger
+}) {
+    const {
+        family,
+        version
+    } = resolveUserAgent(uaString);
 
     // Build versions to attempt building
     let targetsToAttempt = [`${family}`];
@@ -109,7 +122,12 @@ function getCoreJSModulesByUserAgent({features, uaString, logger}) {
  * @param {string} options.overrideTargetPlatform - optional param.  Used by cache primer to directly specify a browserlist query to invoke LRU cache mechanism
  * @param {string} options.uaString - User agent string of incoming HTTP logger.
  */
-function getModules({features, logger, overrideTargetPlatform, uaString}) {
+function getModules({
+    features,
+    logger,
+    overrideTargetPlatform,
+    uaString
+}) {
     let modules = {
         normal: []
     };
@@ -133,8 +151,12 @@ function getModules({features, logger, overrideTargetPlatform, uaString}) {
         modules.corejs = results.modules;
         targetPlatform = results.targetPlatform; // need to re-assign in case target platofrm fails in `getCoreJSModulesByPlatform()`
     }
-    if (!detectIfBrowserHasFetch(targetPlatform)) {
+    if (!detectIfBrowserHasFeature(targetPlatform, 'fetch')) {
         modules.normal.push('whatwg-fetch');
+    }
+
+    if (!detectIfBrowserHasFeature(targetPlatform, 'intersectionobserver')) {
+        modules.normal.push('intersection-observer');
     }
 
     return modules;

@@ -11,13 +11,13 @@ Object {
 }
 `;
 
-exports[`supported-sets.js getBaseFeatureModules() returns 0 modules 1`] = `
+exports[`supported-sets.js getBaseFeatureModules returns 0 modules 1`] = `
 Array [
   "es.map",
 ]
 `;
 
-exports[`supported-sets.js getBaseFeatureModules() returns base feature modules for \`default\` 1`] = `
+exports[`supported-sets.js getBaseFeatureModules returns base feature modules for \`default\` 1`] = `
 Array [
   "es.symbol",
   "es.symbol.description",
