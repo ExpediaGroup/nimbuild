@@ -110,7 +110,7 @@ Array [
 ]
 `;
 
-exports[`index.js creates ie11 corejs minified polyflls 2`] = `83841`;
+exports[`index.js creates ie11 corejs minified polyflls 2`] = `84001`;
 
 exports[`index.js handles UA not defined in browserlist 1`] = `undefined`;
 
