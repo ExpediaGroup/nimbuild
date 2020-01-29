@@ -65,9 +65,9 @@
     ],
     "dependencies": {
         "@vrbo/nimbuild-webpack": "^0.0.3",
-        "browserslist": "^4.7.2",
+        "browserslist": "^4.8.5",
         "browserslist-useragent": "^3.0.2",
-        "caniuse-api": "^3.0.0",
+        "caniuse-lite": "^1.0.30001023",
         "core-js": "^3.3.5",
         "core-js-compat": "^3.2.1",
         "intersection-observer": "^0.7.0",

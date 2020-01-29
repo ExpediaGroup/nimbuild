@@ -178,6 +178,8 @@ Object {
     "web.dom-collections.iterator",
     "web.queue-microtask",
     "web.url-search-params",
+    "fetch",
+    "intersectionobserver",
   ],
 }
 `;
@@ -218,6 +220,8 @@ Object {
     "web.dom-collections.iterator",
     "web.queue-microtask",
     "web.url-search-params",
+    "fetch",
+    "intersectionobserver",
   ],
 }
 `;
@@ -258,6 +262,8 @@ Object {
     "web.dom-collections.iterator",
     "web.queue-microtask",
     "web.url-search-params",
+    "fetch",
+    "intersectionobserver",
   ],
 }
 `;

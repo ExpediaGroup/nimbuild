@@ -3,7 +3,7 @@ const compat = require('core-js-compat');
 const {
     resolveUserAgent
 } = require('browserslist-useragent');
-const caniuse = require('caniuse-api');
+const isSupported = require('./utils/isSupported');
 
 // user
 const {
@@ -11,17 +11,6 @@ const {
     LOG_WARNING
 } = require('./constants');
 const FALLBACK_TARGET_PLATFORM = 'defaults';
-
-/**
- * detectIfBrowserHasFeature()
- * Function when given a UA string, returns true if browser implements feature
- * @param {string} targetPlatform - browserlist query for target support
- * @param {string} feature - polyfill feature
- */
-function detectIfBrowserHasFeature(targetPlatform, feature) {
-    // detect if fetch should be used
-    return caniuse.isSupported(feature, targetPlatform);
-}
 
 /**
  * getCoreJSModulesByPlatform()
@@ -40,9 +29,9 @@ function getCoreJSModulesByPlatform({
     // Always fallback to a safe target platform `FALLBACK_TARGET_PLATFORM``
     targetPlatforms.unshift(FALLBACK_TARGET_PLATFORM);
 
-    while (targetPlatforms.length > 0) {
+    while(targetPlatforms.length > 0) {
         const targetToAttempt = targetPlatforms.pop();
-        if (
+        if(
             targetToAttempt === FALLBACK_TARGET_PLATFORM &&
             typeof uaString !== 'undefined'
         ) {
@@ -64,7 +53,7 @@ function getCoreJSModulesByPlatform({
                 modules: targetModules.list,
                 targetPlatform: targetToAttempt
             };
-        } catch (e) {
+        } catch(e) {
             // Log error and fallback to safer set of polyfills.
             logger.log(
                 LOG_WARNING,
@@ -132,7 +121,8 @@ function getModules({
         normal: []
     };
     let targetPlatform;
-    if (!overrideTargetPlatform) {
+
+    if(!overrideTargetPlatform) {
         // Resolve by user agent
         const results = getCoreJSModulesByUserAgent({
             features,
@@ -151,11 +141,12 @@ function getModules({
         modules.corejs = results.modules;
         targetPlatform = results.targetPlatform; // need to re-assign in case target platofrm fails in `getCoreJSModulesByPlatform()`
     }
-    if (!detectIfBrowserHasFeature(targetPlatform, 'fetch')) {
+
+    if(!isSupported(targetPlatform, 'fetch')) {
         modules.normal.push('whatwg-fetch');
     }
 
-    if (!detectIfBrowserHasFeature(targetPlatform, 'intersectionobserver')) {
+    if(!isSupported(targetPlatform, 'intersectionobserver')) {
         modules.normal.push('intersection-observer');
     }
 

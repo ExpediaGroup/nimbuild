@@ -39,7 +39,9 @@ const supported = {
             'web.dom-collections.for-each',
             'web.dom-collections.iterator',
             'web.queue-microtask',
-            'web.url-search-params'
+            'web.url-search-params',
+            'fetch',
+            'intersectionobserver'
         ],
         exclude: []
     }
@@ -52,12 +54,12 @@ const supported = {
  * @param {object} logger - Logging object to implement logging.  Requires a "log()" API
  */
 function getSupported(featureSet, logger) {
-    if (typeof featureSet === 'undefined') {
+    if(typeof featureSet === 'undefined') {
         return supported;
     }
     const fallbackKey = Object.keys(supported)[0];
     const features = supported[featureSet];
-    if (typeof features === 'undefined') {
+    if(typeof features === 'undefined') {
         logger.log(
             LOG_ERROR,
             `no featureSet "${featureSet}" was found, fallback to ${fallbackKey}`
@@ -80,7 +82,7 @@ function addSupported(featureSet, {
     exclude
 }) {
     // sanity check `features.include` and `features.exclude`
-    if (!include || !exclude) {
+    if(!include || !exclude) {
         throw new Error(`Invalid feature set defined: "${featureSet}"`);
     }
 
@@ -100,9 +102,9 @@ function getAvailableCoreJSFeatures(include, exclude) {
     const featureSet = new Set();
 
     function filter(method, list) {
-        for (const ns of list) {
-            for (const name of modulesList) {
-                if (name === ns || name.startsWith(`${ns}.`)) {
+        for(const ns of list) {
+            for(const name of modulesList) {
+                if(name === ns || name.startsWith(`${ns}.`)) {
                     featureSet[method](name);
                 }
             }
@@ -135,7 +137,7 @@ function getBaseFeatureModules({
         include,
         exclude
     });
-    if (baseFeatureSetCache[cacheKey]) {
+    if(baseFeatureSetCache[cacheKey]) {
         return baseFeatureSetCache[cacheKey];
     }
     baseFeatureSetCache[cacheKey] = getAvailableCoreJSFeatures(

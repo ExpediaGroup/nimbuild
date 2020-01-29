@@ -1,16 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index.js creates chrome corejs minified polyfills 1`] = `
-Array [
-  "intersection-observer",
-]
-`;
+exports[`index.js creates chrome corejs minified polyfills 1`] = `Array []`;
 
-exports[`index.js creates chrome corejs unminified polyfills 1`] = `
-Array [
-  "intersection-observer",
-]
-`;
+exports[`index.js creates chrome corejs unminified polyfills 1`] = `Array []`;
 
 exports[`index.js creates ie11 corejs minified polyflls 1`] = `
 Array [
@@ -118,7 +110,7 @@ Array [
 ]
 `;
 
-exports[`index.js creates ie11 corejs minified polyflls 2`] = `84001`;
+exports[`index.js creates ie11 corejs minified polyflls 2`] = `83841`;
 
 exports[`index.js handles UA not defined in browserlist 1`] = `undefined`;
 
