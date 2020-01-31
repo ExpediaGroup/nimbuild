@@ -30,7 +30,10 @@ async function getPolyfillString({
     uaString
 }) {
     // Resolve base feature set based on include / exclude
-    const features = getBaseFeatureModules({include, exclude});
+    const features = getBaseFeatureModules({
+        include,
+        exclude
+    });
 
     // Resolve modules
     const modules = getModules({

@@ -11,13 +11,13 @@ Object {
 }
 `;
 
-exports[`supported-sets.js getBaseFeatureModules() returns 0 modules 1`] = `
+exports[`supported-sets.js getBaseFeatureModules returns 0 modules 1`] = `
 Array [
   "es.map",
 ]
 `;
 
-exports[`supported-sets.js getBaseFeatureModules() returns base feature modules for \`default\` 1`] = `
+exports[`supported-sets.js getBaseFeatureModules returns base feature modules for \`default\` 1`] = `
 Array [
   "es.symbol",
   "es.symbol.description",
@@ -71,6 +71,7 @@ Array [
   "es.function.bind",
   "es.function.has-instance",
   "es.function.name",
+  "es.json.stringify",
   "es.json.to-string-tag",
   "es.map",
   "es.number.constructor",
@@ -116,6 +117,8 @@ Array [
   "es.regexp.constructor",
   "es.regexp.exec",
   "es.regexp.flags",
+  "es.regexp.sticky",
+  "es.regexp.test",
   "es.regexp.to-string",
   "es.set",
   "es.string.code-point-at",

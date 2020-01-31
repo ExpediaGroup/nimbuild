@@ -93,6 +93,7 @@ function addSupported(featureSet, {include, exclude}) {
  */
 function getAvailableCoreJSFeatures(include, exclude) {
     const featureSet = new Set();
+
     function filter(method, list) {
         for (const ns of list) {
             for (const name of modulesList) {
@@ -120,8 +121,12 @@ function getAvailableCoreJSFeatures(include, exclude) {
  * @param {array} config.exclude - Array of coreJS modules to exclude
  */
 const baseFeatureSetCache = {};
+
 function getBaseFeatureModules({include, exclude}) {
-    const cacheKey = hash({include, exclude});
+    const cacheKey = hash({
+        include,
+        exclude
+    });
     if (baseFeatureSetCache[cacheKey]) {
         return baseFeatureSetCache[cacheKey];
     }

@@ -1,21 +1,20 @@
 // 3rd party
 const compat = require('core-js-compat');
 const {resolveUserAgent} = require('browserslist-useragent');
-const caniuse = require('caniuse-api');
+const isSupported = require('./utils/isSupported');
+
+// customize `String.prototype.matchAll` to avoid over-polyfill
+// see: https://github.com/zloirock/core-js/blob/master/packages/core-js-compat/src/data.js#L876
+require('core-js-compat').data['es.string.match-all'] = {
+    // Early implementations does not throw an error on non-global regex
+    chrome: '73', // core-js-compat: 80
+    firefox: '67', // core-js-compat: 73
+    safari: '13' // core-js-compat: 13.1
+};
 
 // user
 const {LOG_INFO, LOG_WARNING} = require('./constants');
 const FALLBACK_TARGET_PLATFORM = 'defaults';
-
-/**
- * detectIfBrowserHasFetch()
- * Function when given a UA string, returns true if browser implements fetch
- * @param {string} targetPlatform - browserlist query for target support
- */
-function detectIfBrowserHasFetch(targetPlatform) {
-    // detect if fetch should be used
-    return caniuse.isSupported('fetch', targetPlatform);
-}
 
 /**
  * getCoreJSModulesByPlatform()
@@ -114,6 +113,7 @@ function getModules({features, logger, overrideTargetPlatform, uaString}) {
         normal: []
     };
     let targetPlatform;
+
     if (!overrideTargetPlatform) {
         // Resolve by user agent
         const results = getCoreJSModulesByUserAgent({
@@ -133,8 +133,13 @@ function getModules({features, logger, overrideTargetPlatform, uaString}) {
         modules.corejs = results.modules;
         targetPlatform = results.targetPlatform; // need to re-assign in case target platofrm fails in `getCoreJSModulesByPlatform()`
     }
-    if (!detectIfBrowserHasFetch(targetPlatform)) {
+
+    if (!isSupported(targetPlatform, 'fetch')) {
         modules.normal.push('whatwg-fetch');
+    }
+
+    if (!isSupported(targetPlatform, 'intersectionobserver')) {
+        modules.normal.push('intersection-observer');
     }
 
     return modules;

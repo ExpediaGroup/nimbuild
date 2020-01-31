@@ -27,16 +27,20 @@ describe('index.js', () => {
     let mockLogger;
     let include;
     let exclude;
+
     beforeEach(() => {
         clearCache();
         mockFail = false;
         mockLogger = {
             log: jest.fn()
         };
-        const featureSet = getSupported('default', {log: console.log});
+        const featureSet = getSupported('default', {
+            log: console.log
+        });
         include = featureSet.include;
         exclude = featureSet.exclude;
     });
+
     it('handles UA not defined in browserlist', async () => {
         const polyfill = await getPolyfillString({
             include,
@@ -45,6 +49,7 @@ describe('index.js', () => {
             minify: false,
             logger: mockLogger
         });
+
         expect(mockLogger.log).toBeCalledWith(
             ['warning', '@vrbo/nimbuild-corejs'],
             `coreJS module mapping failed for uaString="${mockuas.invalid}" to targetPlatform="${mockuas.invalid}" (message: "Unknown browser query \`${mockuas.invalid}\`. Maybe you are using old Browserslist or made typo in query.")`
@@ -75,9 +80,11 @@ describe('index.js', () => {
             minify: true,
             logger: mockLogger
         });
+
         expect(polyfills.entry).toMatchSnapshot();
         expect(polyfills.script.length).toBeLessThan(10000);
     });
+
     it('creates ie11 corejs minified polyflls', async () => {
         const polyfills = await getPolyfillString({
             include,
@@ -86,9 +93,8 @@ describe('index.js', () => {
             minify: true,
             logger: console
         });
-        console.log('INSPECT', polyfills);
+
         expect(polyfills.entry).toMatchSnapshot();
-        expect(polyfills.script.length).toBeGreaterThan(15000);
         expect(polyfills.script.length).toMatchSnapshot();
     });
 
@@ -121,6 +127,7 @@ describe('index.js', () => {
             minify: true,
             logger: mockLogger
         });
+
         expect(polyfillString.script).toEqual('');
     });
 
@@ -134,6 +141,7 @@ describe('index.js', () => {
                     minify: true,
                     logger: mockLogger
                 });
+
                 expect(polyfills.entry).toMatchSnapshot();
             }
         } catch (e) {
@@ -155,8 +163,11 @@ describe('index.js', () => {
     }, 1000);
 
     it('cache primes in less than 120 seconds', async (done) => {
-        const cacheLength = await primeCache({log: console.log});
-        expect(cacheLength).toEqual(88);
+        const cacheLength = await primeCache({
+            log: console.log
+        });
+
+        expect(cacheLength).toEqual(98);
         done();
     }, 120000);
 });
