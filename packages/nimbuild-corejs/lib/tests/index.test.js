@@ -1,11 +1,5 @@
-const {
-    getPolyfillString,
-    clearCache,
-    primeCache
-} = require('../index');
-const {
-    getSupported
-} = require('../supported-sets');
+const {getPolyfillString, clearCache, primeCache} = require('../index');
+const {getSupported} = require('../supported-sets');
 const mockuas = require('../mocks/ua.mock');
 
 let mockFail = false;
@@ -139,7 +133,7 @@ describe('index.js', () => {
 
     it('handles various UA strings', async () => {
         try {
-            for(let i = 0; i < mockuas.oddGroup.length; i++) {
+            for (let i = 0; i < mockuas.oddGroup.length; i++) {
                 const polyfills = await getPolyfillString({
                     include,
                     exclude,
@@ -150,14 +144,14 @@ describe('index.js', () => {
 
                 expect(polyfills.entry).toMatchSnapshot();
             }
-        } catch(e) {
+        } catch (e) {
             // Fail test (expose exception in test runner)
             expect(e.message).toEqual('error handling UA');
         }
     }, 20000);
 
     it('memoizes for build performance (100 executions in less than 1 second)', async () => {
-        for(let i = 0; i < 100; i++) {
+        for (let i = 0; i < 100; i++) {
             await getPolyfillString({
                 include,
                 exclude,
@@ -173,7 +167,7 @@ describe('index.js', () => {
             log: console.log
         });
 
-        expect(cacheLength).toEqual(88);
+        expect(cacheLength).toEqual(98);
         done();
     }, 120000);
 });

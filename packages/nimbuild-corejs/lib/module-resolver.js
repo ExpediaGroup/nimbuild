@@ -1,15 +1,19 @@
 // 3rd party
 const compat = require('core-js-compat');
-const {
-    resolveUserAgent
-} = require('browserslist-useragent');
+const {resolveUserAgent} = require('browserslist-useragent');
 const isSupported = require('./utils/isSupported');
 
+// customize `String.prototype.matchAll` to avoid over-polyfill
+// see: https://github.com/zloirock/core-js/blob/master/packages/core-js-compat/src/data.js#L876
+require('core-js-compat').data['es.string.match-all'] = {
+    // Early implementations does not throw an error on non-global regex
+    chrome: '73', // core-js-compat: 80
+    firefox: '67', // core-js-compat: 73
+    safari: '13' // core-js-compat: 13.1
+};
+
 // user
-const {
-    LOG_INFO,
-    LOG_WARNING
-} = require('./constants');
+const {LOG_INFO, LOG_WARNING} = require('./constants');
 const FALLBACK_TARGET_PLATFORM = 'defaults';
 
 /**
@@ -29,9 +33,9 @@ function getCoreJSModulesByPlatform({
     // Always fallback to a safe target platform `FALLBACK_TARGET_PLATFORM``
     targetPlatforms.unshift(FALLBACK_TARGET_PLATFORM);
 
-    while(targetPlatforms.length > 0) {
+    while (targetPlatforms.length > 0) {
         const targetToAttempt = targetPlatforms.pop();
-        if(
+        if (
             targetToAttempt === FALLBACK_TARGET_PLATFORM &&
             typeof uaString !== 'undefined'
         ) {
@@ -53,7 +57,7 @@ function getCoreJSModulesByPlatform({
                 modules: targetModules.list,
                 targetPlatform: targetToAttempt
             };
-        } catch(e) {
+        } catch (e) {
             // Log error and fallback to safer set of polyfills.
             logger.log(
                 LOG_WARNING,
@@ -73,15 +77,8 @@ function getCoreJSModulesByPlatform({
  * @param {object} options.logger - Logging object to implement logging.  Requires a "log()" API
  * @param {string} options.uaString - User agent string of incoming HTTP logger.
  */
-function getCoreJSModulesByUserAgent({
-    features,
-    uaString,
-    logger
-}) {
-    const {
-        family,
-        version
-    } = resolveUserAgent(uaString);
+function getCoreJSModulesByUserAgent({features, uaString, logger}) {
+    const {family, version} = resolveUserAgent(uaString);
 
     // Build versions to attempt building
     let targetsToAttempt = [`${family}`];
@@ -111,18 +108,13 @@ function getCoreJSModulesByUserAgent({
  * @param {string} options.overrideTargetPlatform - optional param.  Used by cache primer to directly specify a browserlist query to invoke LRU cache mechanism
  * @param {string} options.uaString - User agent string of incoming HTTP logger.
  */
-function getModules({
-    features,
-    logger,
-    overrideTargetPlatform,
-    uaString
-}) {
+function getModules({features, logger, overrideTargetPlatform, uaString}) {
     let modules = {
         normal: []
     };
     let targetPlatform;
 
-    if(!overrideTargetPlatform) {
+    if (!overrideTargetPlatform) {
         // Resolve by user agent
         const results = getCoreJSModulesByUserAgent({
             features,
@@ -142,11 +134,11 @@ function getModules({
         targetPlatform = results.targetPlatform; // need to re-assign in case target platofrm fails in `getCoreJSModulesByPlatform()`
     }
 
-    if(!isSupported(targetPlatform, 'fetch')) {
+    if (!isSupported(targetPlatform, 'fetch')) {
         modules.normal.push('whatwg-fetch');
     }
 
-    if(!isSupported(targetPlatform, 'intersectionobserver')) {
+    if (!isSupported(targetPlatform, 'intersectionobserver')) {
         modules.normal.push('intersection-observer');
     }
 

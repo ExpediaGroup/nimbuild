@@ -1,12 +1,8 @@
 // 3rd party
 const browserslist = require('browserslist');
 // user
-const {
-    LOG_ERROR
-} = require('./constants');
-const {
-    getModules
-} = require('./module-resolver');
+const {LOG_ERROR} = require('./constants');
+const {getModules} = require('./module-resolver');
 const {
     addSupported,
     getSupported,
@@ -87,10 +83,7 @@ async function primeCache(logger) {
     const featureSets = Object.keys(getSupported());
     for (let i = 0; i < featureSets.length; i++) {
         const featureSet = featureSets[i];
-        const {
-            include,
-            exclude
-        } = getSupported(featureSet);
+        const {include, exclude} = getSupported(featureSet);
         for (let j = 0; j < browsers.length; j++) {
             const browser = browsers[j];
             await getPolyfillString({

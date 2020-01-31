@@ -1,10 +1,5 @@
-const {
-    getModules
-} = require('../module-resolver');
-const {
-    getSupported,
-    getBaseFeatureModules
-} = require('../supported-sets');
+const {getModules} = require('../module-resolver');
+const {getSupported, getBaseFeatureModules} = require('../supported-sets');
 const mockuas = require('../mocks/ua.mock');
 
 describe('module-resolver.js', () => {
@@ -52,7 +47,7 @@ describe('module-resolver.js', () => {
             logger: mockLogger
         });
 
-        expect(response.corejs.length).toEqual(99);
+        expect(response.corejs.length).toEqual(110);
         expect(response.normal.length).toEqual(2);
         expect(response).toMatchSnapshot();
     });

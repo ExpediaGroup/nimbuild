@@ -1,9 +1,7 @@
 const modulesList = Object.keys(require('core-js-compat/data'));
 const hash = require('object-hash');
 
-const {
-    LOG_ERROR
-} = require('./constants');
+const {LOG_ERROR} = require('./constants');
 
 const supported = {
     default: {
@@ -39,9 +37,7 @@ const supported = {
             'web.dom-collections.for-each',
             'web.dom-collections.iterator',
             'web.queue-microtask',
-            'web.url-search-params',
-            'fetch',
-            'intersectionobserver'
+            'web.url-search-params'
         ],
         exclude: []
     }
@@ -54,12 +50,12 @@ const supported = {
  * @param {object} logger - Logging object to implement logging.  Requires a "log()" API
  */
 function getSupported(featureSet, logger) {
-    if(typeof featureSet === 'undefined') {
+    if (typeof featureSet === 'undefined') {
         return supported;
     }
     const fallbackKey = Object.keys(supported)[0];
     const features = supported[featureSet];
-    if(typeof features === 'undefined') {
+    if (typeof features === 'undefined') {
         logger.log(
             LOG_ERROR,
             `no featureSet "${featureSet}" was found, fallback to ${fallbackKey}`
@@ -77,12 +73,9 @@ function getSupported(featureSet, logger) {
  * @param {*} options.include - coreJS modules to include
  * @param {*} options.exclude - coreJS modules to exclude
  */
-function addSupported(featureSet, {
-    include,
-    exclude
-}) {
+function addSupported(featureSet, {include, exclude}) {
     // sanity check `features.include` and `features.exclude`
-    if(!include || !exclude) {
+    if (!include || !exclude) {
         throw new Error(`Invalid feature set defined: "${featureSet}"`);
     }
 
@@ -102,9 +95,9 @@ function getAvailableCoreJSFeatures(include, exclude) {
     const featureSet = new Set();
 
     function filter(method, list) {
-        for(const ns of list) {
-            for(const name of modulesList) {
-                if(name === ns || name.startsWith(`${ns}.`)) {
+        for (const ns of list) {
+            for (const name of modulesList) {
+                if (name === ns || name.startsWith(`${ns}.`)) {
                     featureSet[method](name);
                 }
             }
@@ -129,15 +122,12 @@ function getAvailableCoreJSFeatures(include, exclude) {
  */
 const baseFeatureSetCache = {};
 
-function getBaseFeatureModules({
-    include,
-    exclude
-}) {
+function getBaseFeatureModules({include, exclude}) {
     const cacheKey = hash({
         include,
         exclude
     });
-    if(baseFeatureSetCache[cacheKey]) {
+    if (baseFeatureSetCache[cacheKey]) {
         return baseFeatureSetCache[cacheKey];
     }
     baseFeatureSetCache[cacheKey] = getAvailableCoreJSFeatures(

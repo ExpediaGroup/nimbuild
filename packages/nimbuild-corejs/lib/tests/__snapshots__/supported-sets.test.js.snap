@@ -71,6 +71,7 @@ Array [
   "es.function.bind",
   "es.function.has-instance",
   "es.function.name",
+  "es.json.stringify",
   "es.json.to-string-tag",
   "es.map",
   "es.number.constructor",
@@ -116,6 +117,8 @@ Array [
   "es.regexp.constructor",
   "es.regexp.exec",
   "es.regexp.flags",
+  "es.regexp.sticky",
+  "es.regexp.test",
   "es.regexp.to-string",
   "es.set",
   "es.string.code-point-at",
@@ -178,8 +181,6 @@ Object {
     "web.dom-collections.iterator",
     "web.queue-microtask",
     "web.url-search-params",
-    "fetch",
-    "intersectionobserver",
   ],
 }
 `;
@@ -220,8 +221,6 @@ Object {
     "web.dom-collections.iterator",
     "web.queue-microtask",
     "web.url-search-params",
-    "fetch",
-    "intersectionobserver",
   ],
 }
 `;
@@ -262,8 +261,6 @@ Object {
     "web.dom-collections.iterator",
     "web.queue-microtask",
     "web.url-search-params",
-    "fetch",
-    "intersectionobserver",
   ],
 }
 `;
