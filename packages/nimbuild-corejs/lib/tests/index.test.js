@@ -5,7 +5,7 @@ const mockuas = require('../mocks/ua.mock');
 let mockFail = false;
 
 /**
- * TODO: fix JEST mocking webpack in symlink context
+ * TODO: fix JEST mocking webpack in symlink context (TravisCI)
  *
 jest.mock('webpack', () => {
     return (config) => {
@@ -58,7 +58,7 @@ describe('index.js', () => {
             ['warning', '@vrbo/nimbuild-corejs'],
             `using fallback query for userAgent="${mockuas.invalid}"`
         );
-        expect(polyfill.modules).toMatchSnapshot();
+        expect(polyfill.entry).toMatchSnapshot();
     });
 
     it('creates chrome corejs unminified polyfills', async () => {
@@ -70,6 +70,18 @@ describe('index.js', () => {
             logger: mockLogger
         });
         expect(polyfills.entry).toMatchSnapshot();
+    });
+
+    it('proactively handles future versions of chrome family by assuming latest supported', async () => {
+        const polyfills = await getPolyfillString({
+            include,
+            exclude,
+            uaString: mockuas.chrome999,
+            minify: false,
+            logger: mockLogger
+        });
+        expect(polyfills.entry).toMatchSnapshot();
+        expect(polyfills.script.length).toEqual(0);
     });
 
     it('creates chrome corejs minified polyfills', async () => {
@@ -99,6 +111,7 @@ describe('index.js', () => {
     });
 
     /*
+    TODO: resolve failures that happen in Travis CI when mocking webpack exceptions
     it('handles webpack compile failures', async () => {
         mockFail = true;
         try {

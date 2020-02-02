@@ -7,6 +7,13 @@ Object {
 }
 `;
 
+exports[`module-resolver.js Resolves future versions of chrome to modern bundle 1`] = `
+Object {
+  "corejs": Array [],
+  "normal": Array [],
+}
+`;
+
 exports[`module-resolver.js Resolves ie11 UA to list of coreJS modules 1`] = `
 Object {
   "corejs": Array [
