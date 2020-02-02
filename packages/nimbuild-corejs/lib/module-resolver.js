@@ -90,7 +90,6 @@ function getCoreJSModulesByUserAgent({features, uaString, logger}) {
     const major = normalizeUnreleased(family, versionArray[0]);
     const minor = versionArray[1];
 
-    // check if we are seeing unreleased version
     targetsToAttempt.push(`${family} ${major}`);
     targetsToAttempt.push(`${family} ${major}.${minor}`);
 
