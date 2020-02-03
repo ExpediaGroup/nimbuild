@@ -1,6 +1,6 @@
 {
     "name": "@vrbo/nimbuild-webpack",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Library that provides nimbuild webpack bundling at runtime",
     "license": "MIT",
     "author": {
