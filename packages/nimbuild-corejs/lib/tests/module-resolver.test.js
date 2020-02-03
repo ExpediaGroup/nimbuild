@@ -51,4 +51,21 @@ describe('module-resolver.js', () => {
         expect(response.normal.length).toEqual(2);
         expect(response).toMatchSnapshot();
     });
+
+    it('Resolves future versions of chrome to modern bundle', async () => {
+        const features = getBaseFeatureModules({
+            include,
+            exclude
+        });
+        const response = await getModules({
+            features,
+            uaString: mockuas.chrome999,
+            minify: false,
+            logger: mockLogger
+        });
+
+        expect(response.corejs.length).toEqual(0);
+        expect(response.normal.length).toEqual(0);
+        expect(response).toMatchSnapshot();
+    });
 });

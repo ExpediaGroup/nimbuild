@@ -2,6 +2,7 @@
 const compat = require('core-js-compat');
 const {resolveUserAgent} = require('browserslist-useragent');
 const isSupported = require('./utils/isSupported');
+const normalizeUnreleased = require('./utils/normalizeUnreleased');
 
 // customize `String.prototype.matchAll` to avoid over-polyfill
 // see: https://github.com/zloirock/core-js/blob/master/packages/core-js-compat/src/data.js#L876
@@ -86,7 +87,7 @@ function getCoreJSModulesByUserAgent({features, uaString, logger}) {
     // Build target platform by family and major/minor (if non-zero values)
     const versionArray = version.match(/([\d]+)/g);
 
-    const major = versionArray[0];
+    const major = normalizeUnreleased(family, versionArray[0]);
     const minor = versionArray[1];
 
     targetsToAttempt.push(`${family} ${major}`);

@@ -17,7 +17,8 @@
         "coverage": "nyc report --reporter=text-lcov | coveralls",
         "test": "npm run test:lint && npm run test:unit",
         "test:lint": "eslint --color lib/**/*.js",
-        "test:unit": "jest --coverage lib/"
+        "test:unit": "jest --coverage lib/",
+        "test:unit:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand --colors --detectOpenHandles lib/"
     },
     "repository": {
         "type": "git",
