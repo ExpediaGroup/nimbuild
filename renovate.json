@@ -1,0 +1,15 @@
+{
+    "extends": ["config:base"],
+    "prConcurrentLimit": 2,
+    "branchPrefix": "renovate-",
+    "lockFileMaintenance": {
+        "enabled": true,
+        "extends": "schedule:weekly"
+    },
+    "packageRules": [
+        {
+            "extends": "monorepo:lerna",
+            "groupName": "lerna monorepo"
+        }
+    ]
+}
