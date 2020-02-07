@@ -47,7 +47,7 @@ describe('module-resolver.js', () => {
             logger: mockLogger
         });
 
-        expect(response.corejs.length).toEqual(110);
+        expect(response.corejs.length).toEqual(100);
         expect(response.normal.length).toEqual(2);
         expect(response).toMatchSnapshot();
     });

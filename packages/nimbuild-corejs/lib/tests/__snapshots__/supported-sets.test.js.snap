@@ -117,8 +117,6 @@ Array [
   "es.regexp.constructor",
   "es.regexp.exec",
   "es.regexp.flags",
-  "es.regexp.sticky",
-  "es.regexp.test",
   "es.regexp.to-string",
   "es.set",
   "es.string.code-point-at",
