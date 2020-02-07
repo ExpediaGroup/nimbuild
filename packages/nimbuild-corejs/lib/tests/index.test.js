@@ -180,7 +180,7 @@ describe('index.js', () => {
             log: console.log
         });
 
-        expect(cacheLength).toEqual(98);
+        expect(cacheLength).toEqual(94);
         done();
     }, 120000);
 });
