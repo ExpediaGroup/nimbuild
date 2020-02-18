@@ -65,16 +65,16 @@
         "corejs"
     ],
     "dependencies": {
-        "@vrbo/nimbuild-webpack": "^0.1.1",
-        "browserslist": "^4.8.6",
-        "browserslist-useragent": "^3.0.2",
-        "caniuse-lite": "^1.0.30001023",
-        "core-js": "^3.6.4",
-        "core-js-compat": "^3.6.4",
-        "intersection-observer": "^0.7.0",
+        "@vrbo/nimbuild-webpack": "0.1.1",
+        "browserslist": "4.8.6",
+        "browserslist-useragent": "3.0.2",
+        "caniuse-lite": "1.0.30001023",
+        "core-js": "3.6.4",
+        "core-js-compat": "3.6.4",
+        "intersection-observer": "0.7.0",
         "object-hash": "^1.3.1",
         "webpack": "^4.41.2",
-        "whatwg-fetch": "^3.0.0"
+        "whatwg-fetch": "3.0.0"
     },
     "devDependencies": {
         "babel-eslint": "^10.0.3",

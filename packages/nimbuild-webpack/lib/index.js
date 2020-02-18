@@ -77,6 +77,95 @@ class WebpackNimbuild {
             options.webpackConfig
         );
     }
+    /**
+     * run()
+     * Returns a instance of a webpack compiler
+     * @param {array} entry - Paths to modules to build
+     * @param {bool} minify - Boolean when true produces minimized build
+     */
+    async run({entry, minify, modifyScript, ...rest}) {
+        // Compute runtime
+        const startTime = Date.now();
+
+        // If no given entry, immediately return
+        if (!entry || (entry && entry.length === 0)) {
+            return {
+                script: '',
+                entry
+            };
+        }
+        // Create cache key
+        const cacheKey = hash({entry, minify});
+
+        // Check to see if we already have entry
+        if (this.cache.has(cacheKey)) {
+            return {
+                ...this.cache.get(cacheKey),
+                cached: true,
+                timeElapsed: Date.now() - startTime
+            };
+        }
+
+        // If not, create a webpack compiler given class configuration and arguments
+        const config = merge(this.webpackConfiguration, {
+            entry,
+            mode: minify ? 'production' : 'none',
+            ...rest
+        });
+
+        // Create webpack compiler
+        const compiler = webpack(config);
+
+        // Use memory file system to avoid disk I/O
+        const memoryFileSystem = new MemoryFS();
+        compiler.outputFileSystem = memoryFileSystem;
+
+        // Execute webpack process
+        return new Promise((resolve) => {
+            compiler.run((err) => {
+                if (err) {
+                    throw new Error(err);
+                }
+
+                // Get bundle from memory
+                let script = compiler.outputFileSystem.data['script.js'];
+                if (!script) {
+                    script = '';
+                } else {
+                    script = script.toString();
+                }
+
+                // If given a modifyScript function, execute
+                if (modifyScript) {
+                    script = modifyScript(script);
+                }
+
+                // Create response object
+                const response = {
+                    script,
+                    entry
+                };
+                // Update internal LRU cache
+                this.cache.set(cacheKey, response);
+
+                // Resolve response
+                resolve({
+                    ...response,
+                    cached: false,
+                    timeElapsed: Date.now() - startTime
+                });
+            });
+        });
+    }
+
+    /**
+     * analyze()
+     * Partition analysis of bundle at runtime
+     * NOTE: this method is still experimental
+     * @param {array} p.entry - Paths to modules to build
+     * @param {bool} p.minify - Boolean when true produces minimized build
+     */
+    /* istanbul ignore next */
     async analyze({entry, minify}) {
         // define path to report name
         const reportId = Date.now();
@@ -149,75 +238,6 @@ class WebpackNimbuild {
                     sunburstHtml,
                     entry
                 };
-
-                // Resolve response
-                resolve(response);
-            });
-        });
-    }
-    /**
-     * run()
-     * Returns a instance of a webpack compiler
-     * @param {array} entry - Paths to modules to build
-     * @param {bool} minify - Boolean when true produces minimized build
-     */
-    async run({entry, minify, modifyScript, ...rest}) {
-        // If no given entry, immediately return
-        if (!entry || (entry && entry.length === 0)) {
-            return {
-                script: '',
-                entry
-            };
-        }
-        // Create cache key
-        const cacheKey = hash({entry, minify});
-
-        // Check to see if we already have entry
-        if (this.cache.has(cacheKey)) {
-            return this.cache.get(cacheKey);
-        }
-
-        // If not, create a webpack compiler given class configuration and arguments
-        const config = merge(this.webpackConfiguration, {
-            entry,
-            mode: minify ? 'production' : 'none',
-            ...rest
-        });
-
-        // Create webpack compiler
-        const compiler = webpack(config);
-
-        // Use memory file system to avoid disk I/O
-        const memoryFileSystem = new MemoryFS();
-        compiler.outputFileSystem = memoryFileSystem;
-
-        // Execute webpack process
-        return new Promise((resolve) => {
-            compiler.run((err) => {
-                if (err) {
-                    throw new Error(err);
-                }
-
-                // Get bundle from memory
-                let script = compiler.outputFileSystem.data['script.js'];
-                if (!script) {
-                    script = '';
-                } else {
-                    script = script.toString();
-                }
-
-                // If given a modifyScript function, execute
-                if (modifyScript) {
-                    script = modifyScript(script);
-                }
-
-                // Create response object
-                const response = {
-                    script,
-                    entry
-                };
-                // Update internal LRU cache
-                this.cache.set(cacheKey, response);
 
                 // Resolve response
                 resolve(response);
