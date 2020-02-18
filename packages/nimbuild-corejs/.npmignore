@@ -9,6 +9,7 @@
 .publish
 .stylelintrc
 babel.config.js
+coverage
 docs
 markdown
 node_modules

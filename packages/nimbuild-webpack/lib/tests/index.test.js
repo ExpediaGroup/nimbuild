@@ -1,3 +1,4 @@
+const path = require('path');
 // Since we run jest in a browser environment (unit testing server + client), we need to
 // patch setTimeout to polyfill an API in setTimeout() so we can mock webpack
 const webpacknimbuild = require('../index')({
@@ -24,6 +25,20 @@ describe('nimbuild-webpack.js', () => {
     });
 
     const entry = ['preact'];
+
+    it('Return true/false `cached` properties depending on if building a unique entry', async () => {
+        let response = await webpacknimbuild.run({
+            entry: [path.join(__dirname, './mocks/foo')],
+            minify: false
+        });
+        expect(response.cached).toEqual(false);
+
+        response = await webpacknimbuild.run({
+            entry: [path.join(__dirname, './mocks/foo')],
+            minify: false
+        });
+        expect(response.cached).toEqual(true);
+    });
 
     it('Builds development bundles from `entry`', async () => {
         const response = await webpacknimbuild.run({entry, minify: false});

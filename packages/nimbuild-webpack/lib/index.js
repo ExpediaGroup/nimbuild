@@ -77,6 +77,7 @@ class WebpackNimbuild {
             options.webpackConfig
         );
     }
+    /* istanbul ignore next */
     async analyze({entry, minify}) {
         // define path to report name
         const reportId = Date.now();
@@ -174,7 +175,10 @@ class WebpackNimbuild {
 
         // Check to see if we already have entry
         if (this.cache.has(cacheKey)) {
-            return this.cache.get(cacheKey);
+            return {
+                ...this.cache.get(cacheKey),
+                cached: true
+            };
         }
 
         // If not, create a webpack compiler given class configuration and arguments
@@ -220,7 +224,7 @@ class WebpackNimbuild {
                 this.cache.set(cacheKey, response);
 
                 // Resolve response
-                resolve(response);
+                resolve({...response, cached: false});
             });
         });
     }
