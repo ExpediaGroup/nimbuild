@@ -42,17 +42,19 @@ describe('nimbuild-webpack.js', () => {
 
     it('Builds development bundles from `entry`', async () => {
         const response = await webpacknimbuild.run({entry, minify: false});
-        expect(response).toMatchSnapshot();
+        expect(response.script).toMatchSnapshot();
+        expect(response.entry).toMatchSnapshot();
     });
 
     it('Builds production bundles from `entry`', async () => {
         const response = await webpacknimbuild.run({entry, minify: true});
-        expect(response).toMatchSnapshot();
+        expect(response.script).toMatchSnapshot();
+        expect(response.entry).toMatchSnapshot();
     });
 
     it('Builds empty string with empty `entry`', async () => {
         const response = await webpacknimbuild.run({entry: [], minify: true});
-        expect(response).toMatchSnapshot();
+        expect(response.entry).toEqual([]);
         expect(response.script).toEqual('');
     });
 
