@@ -131,6 +131,7 @@ Object {
   "normal": Array [
     "whatwg-fetch",
     "intersection-observer",
+    "custom-event-polyfill",
   ],
 }
 `;

@@ -143,6 +143,10 @@ function getModules({features, logger, overrideTargetPlatform, uaString}) {
         modules.normal.push('intersection-observer');
     }
 
+    if (!isSupported(targetPlatform, 'customevent')) {
+        modules.normal.push('custom-event-polyfill');
+    }
+
     return modules;
 }
 
