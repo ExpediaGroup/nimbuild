@@ -118,10 +118,11 @@ Array [
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
   "intersection-observer",
+  "custom-event-polyfill",
 ]
 `;
 
-exports[`index.js creates ie11 corejs minified polyflls 2`] = `90315`;
+exports[`index.js creates ie11 corejs minified polyflls 2`] = `90957`;
 
 exports[`index.js handles UA not defined in browserlist 1`] = `
 Array [
@@ -243,6 +244,7 @@ Array [
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
   "intersection-observer",
+  "custom-event-polyfill",
 ]
 `;
 
@@ -366,6 +368,7 @@ Array [
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
   "intersection-observer",
+  "custom-event-polyfill",
 ]
 `;
 
@@ -489,6 +492,7 @@ Array [
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
   "intersection-observer",
+  "custom-event-polyfill",
 ]
 `;
 
@@ -650,6 +654,7 @@ Array [
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
   "intersection-observer",
+  "custom-event-polyfill",
 ]
 `;
 
@@ -773,6 +778,7 @@ Array [
   "core-js/modules/web.url-search-params",
   "whatwg-fetch",
   "intersection-observer",
+  "custom-event-polyfill",
 ]
 `;
 

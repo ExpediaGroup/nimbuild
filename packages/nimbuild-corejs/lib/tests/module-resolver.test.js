@@ -48,7 +48,7 @@ describe('module-resolver.js', () => {
         });
 
         expect(response.corejs.length).toEqual(110);
-        expect(response.normal.length).toEqual(2);
+        expect(response.normal.length).toEqual(3);
         expect(response).toMatchSnapshot();
     });
 
