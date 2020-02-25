@@ -1,13 +1,9 @@
 # @vrbo/nimbuild-webpack
 
-[![NPM Version](https://img.shields.io/npm/v/@vrbo/nimbuild-corejs.svg?style=flat-square)](https://www.npmjs.com/package/@vrbo/nimbuild-corejs)
+[![NPM Version](https://img.shields.io/npm/v/@vrbo/nimbuild-corejs.svg?style=flat-square)](https://www.npmjs.com/package/@vrbo/nimbuild-webpack)
 [![Build Status](https://travis-ci.org/expediagroup/nimbuild.svg?branch=master)](https://travis-ci.org/expediagroup/nimbuild)
 
 Library that provides nimbuild webpack bundling at runtime
-
-## Why
-
-See [nimbuild-corejs](https://github.vrbocorp.com/cnienhuis/nimbuild-corejs)
 
 ## Installation
 
@@ -17,14 +13,18 @@ npm install --save @vrbo/nimbuild-webpack
 
 ## Usage
 
-Import module and prime cache
+Import module and instantiate new class instance:
 
 ```javascript
 const webpacknimbuild = require('@vrbo/nimbuild-webpack')({
     webpackConfig: {...}, // customize webpack compiler
     maxEntries: 100 // defaults to 0 for infinity
 });
+```
 
+Get bundle string:
+
+```javascript
 async function getBundleString() {
     const response = await webpacknimbuild.run({
         entry: ['react', 'react-dom'],
@@ -36,6 +36,16 @@ async function getBundleString() {
     });
     return response.script; // contains string value of bundle
 }
+```
+
+Getting / Setting Cache:
+
+```javascript
+// Get serialized cache
+const serializedData = webpacknimbuild.serializeCache();
+
+// Set cache from serialized data
+webpacknimbuild.deserializeCache(serializedData);
 ```
 
 Configure `nimbuild-webpack` to handle ES6+ source code

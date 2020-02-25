@@ -94,8 +94,21 @@ class WebpackNimbuild {
                 entry
             };
         }
+
+        // Normalize entry by removing base path
+        let normalizedEntry;
+        const processDir = process.cwd();
+
+        if (entry.map) {
+            normalizedEntry = entry.map((_entry) => {
+                return _entry.replace(processDir, '');
+            });
+        } else {
+            normalizedEntry = entry.replace(processDir, '');
+        }
+
         // Create cache key
-        const cacheKey = hash({entry, minify});
+        const cacheKey = hash({normalizedEntry, minify});
 
         // Check to see if we already have entry
         if (this.cache.has(cacheKey)) {
@@ -143,7 +156,7 @@ class WebpackNimbuild {
                 // Create response object
                 const response = {
                     script,
-                    entry
+                    entry: normalizedEntry
                 };
                 // Update internal LRU cache
                 this.cache.set(cacheKey, response);
@@ -156,6 +169,33 @@ class WebpackNimbuild {
                 });
             });
         });
+    }
+
+    /**
+     * serializeCache()
+     * Returns serialized cache from this.cache
+     */
+    serializeCache() {
+        const data = this.cache.dump();
+        const serializedData = JSON.stringify(data);
+        return serializedData;
+    }
+
+    /**
+     * deserializeCache()
+     * Sets cache given serialized data
+     */
+    deserializeCache(serializedData) {
+        const data = JSON.parse(serializedData);
+        return this.cache.load(data);
+    }
+
+    /**
+     * clearCache()
+     * Method that clears LRU cache out
+     */
+    clearCache() {
+        return this.cache.reset();
     }
 
     /**

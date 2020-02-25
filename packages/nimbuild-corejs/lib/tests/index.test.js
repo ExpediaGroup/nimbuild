@@ -1,5 +1,15 @@
-const {getPolyfillString, clearCache, primeCache} = require('../index');
-const {getSupported} = require('../supported-sets');
+const {
+    getPolyfillString,
+    clearCache,
+    serializeCache,
+    deserializeCache,
+    primeCache
+} = require('../index');
+const {
+    getSupported,
+    clearSupported,
+    addSupported
+} = require('../supported-sets');
 const mockuas = require('../mocks/ua.mock');
 
 let mockFail = false;
@@ -181,6 +191,37 @@ describe('index.js', () => {
         });
 
         expect(cacheLength).toEqual(103);
+
         done();
     }, 120000);
+
+    it('Customizes feature set', async (done) => {
+        clearSupported(); // removes `default` support set
+        addSupported('just-string-pad-start', {
+            include: ['es.string.pad-start'],
+            exclude: []
+        });
+
+        let cacheLength = await primeCache({
+            log: console.log
+        });
+
+        expect(cacheLength).toEqual(5);
+
+        // Get serialized cache
+        const serializedData = serializeCache();
+
+        clearCache();
+
+        // Set cache from serialized data
+        deserializeCache(serializedData);
+
+        cacheLength = await primeCache({
+            log: console.log
+        });
+
+        expect(cacheLength).toEqual(5);
+
+        done();
+    }, 60000);
 });

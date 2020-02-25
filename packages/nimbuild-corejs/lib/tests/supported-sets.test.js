@@ -1,6 +1,8 @@
 const {
     getSupported,
     addSupported,
+    resetSupported,
+    clearSupported,
     getBaseFeatureModules
 } = require('../supported-sets');
 
@@ -54,6 +56,19 @@ describe('supported-sets.js', () => {
                 exclude
             });
             expect(getSupported('custom-set')).toMatchSnapshot();
+        });
+
+        it('clears featureSets', async () => {
+            const include = ['es.array'];
+            const exclude = ['es.string'];
+            const removed = clearSupported();
+            expect(removed).toEqual(2);
+            addSupported('custom-set', {
+                include,
+                exclude
+            });
+            expect(getSupported()).toMatchSnapshot();
+            resetSupported();
         });
     });
 

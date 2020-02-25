@@ -11,6 +11,19 @@ Object {
 }
 `;
 
+exports[`supported-sets.js addSupported() clears featureSets 1`] = `
+Object {
+  "custom-set": Object {
+    "exclude": Array [
+      "es.string",
+    ],
+    "include": Array [
+      "es.array",
+    ],
+  },
+}
+`;
+
 exports[`supported-sets.js getBaseFeatureModules returns 0 modules 1`] = `
 Array [
   "es.map",

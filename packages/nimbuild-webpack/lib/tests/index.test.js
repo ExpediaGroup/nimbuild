@@ -87,4 +87,38 @@ describe('nimbuild-webpack.js', () => {
         }
         done();
     });
+
+    it('Serialize and deserialize LRU cache', async () => {
+        // given, when
+        webpacknimbuild.clearCache();
+
+        await webpacknimbuild.run({
+            entry: [path.join(__dirname, './mocks/foo')],
+            minify: false
+        });
+
+        await webpacknimbuild.run({
+            entry: path.join(__dirname, './mocks/foo'),
+            minify: true
+        });
+
+        // then
+        const cached = webpacknimbuild.serializeCache();
+
+        expect(cached).toMatchSnapshot();
+
+        webpacknimbuild.clearCache();
+
+        webpacknimbuild.deserializeCache(cached);
+
+        expect(webpacknimbuild.serializeCache()).toMatchSnapshot();
+
+        const response = await webpacknimbuild.run({
+            entry: path.join(__dirname, './mocks/foo'),
+            minify: true
+        });
+
+        expect(response.cached).toEqual(true);
+        expect(response.script).toMatchSnapshot();
+    });
 });
