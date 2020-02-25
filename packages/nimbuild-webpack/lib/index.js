@@ -99,10 +99,12 @@ class WebpackNimbuild {
         let normalizedEntry;
         const processDir = process.cwd();
 
-        if (entry.map) {
+        if (Array.isArray(entry)) {
             normalizedEntry = entry.map((_entry) => {
                 return _entry.replace(processDir, '');
             });
+        } else if (entry instanceof Object) {
+            throw new Error('run() does not support entry of Object type');
         } else {
             normalizedEntry = entry.replace(processDir, '');
         }

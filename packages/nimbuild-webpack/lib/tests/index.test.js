@@ -26,6 +26,20 @@ describe('nimbuild-webpack.js', () => {
 
     const entry = ['preact'];
 
+    it('Throw an error when given an entry of type "Object"', async () => {
+        const operation = async () => {
+            return await webpacknimbuild.run({
+                entry: {
+                    foo: path.join(__dirname, './mocks/foo')
+                },
+                minify: false
+            });
+        };
+        expect(operation()).rejects.toThrow(
+            new Error('run() does not support entry of Object type')
+        );
+    });
+
     it('Return true/false `cached` properties depending on if building a unique entry', async () => {
         let response = await webpacknimbuild.run({
             entry: [path.join(__dirname, './mocks/foo')],
@@ -88,37 +102,37 @@ describe('nimbuild-webpack.js', () => {
         done();
     });
 
-    it('Serialize and deserialize LRU cache', async () => {
+    it('Serialize and deserialize LRU cache', async (done) => {
         // given, when
         webpacknimbuild.clearCache();
+        const configs = [
+            {
+                entry: [path.join(__dirname, './mocks/foo')],
+                minify: true
+            },
+            {
+                entry: path.join(__dirname, './mocks/foo'),
+                minify: true
+            }
+        ];
 
-        await webpacknimbuild.run({
-            entry: [path.join(__dirname, './mocks/foo')],
-            minify: false
-        });
+        for (config of configs) {
+            await webpacknimbuild.run(config);
+        }
 
-        await webpacknimbuild.run({
-            entry: path.join(__dirname, './mocks/foo'),
-            minify: true
-        });
-
-        // then
+        // then, assert cache
         const cached = webpacknimbuild.serializeCache();
-
         expect(cached).toMatchSnapshot();
-
         webpacknimbuild.clearCache();
-
         webpacknimbuild.deserializeCache(cached);
-
         expect(webpacknimbuild.serializeCache()).toMatchSnapshot();
 
-        const response = await webpacknimbuild.run({
-            entry: path.join(__dirname, './mocks/foo'),
-            minify: true
-        });
-
-        expect(response.cached).toEqual(true);
-        expect(response.script).toMatchSnapshot();
+        // then, asset subsequent runs result in cached
+        for (config of configs) {
+            const response = await webpacknimbuild.run(config);
+            expect(response.cached).toEqual(true);
+            expect(response.script).toMatchSnapshot();
+        }
+        done();
     });
 });
