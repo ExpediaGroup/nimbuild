@@ -1,5 +1,9 @@
 const {getModules} = require('../module-resolver');
-const {getSupported, getBaseFeatureModules} = require('../supported-sets');
+const {
+    getSupported,
+    getBaseFeatureModules,
+    initializeSupported
+} = require('../supported-sets');
 const mockuas = require('../mocks/ua.mock');
 
 describe('module-resolver.js', () => {
@@ -8,6 +12,7 @@ describe('module-resolver.js', () => {
     let mockLogger; //eslint-disable-line
 
     beforeEach(() => {
+        initializeSupported();
         mockLogger = {
             log: jest.fn()
         };

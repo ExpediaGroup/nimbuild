@@ -21,11 +21,39 @@ npm install --save @vrbo/nimbuild-corejs
 
 ## Usage
 
-Import module and prime cache
+Import module, configure, and prime cache
 
 ```javascript
-const {primeCache} = require('@vrbo/nimbuild-corejs');
-primeCache(); // async, takes up to 20 seconds
+const {
+    addSupported,
+    clearSupported,
+    primeCache,
+    serializeCache,
+    deserializeCache
+} = require('@vrbo/nimbuild-corejs');
+
+// Initialize supported corejs modules
+initializeSupported(); // use `nimbuild-corejs` defaults
+// or customize supported corejs modules
+initializeSupported({
+    'my-default': {
+        include: [
+            /* custom core-js modules */
+        ],
+        exclude: [
+            /* custom core-js modules */
+        ]
+    }
+});
+
+// Runs webpacknimbuild.run() on every browser platform
+await primeCache();
+
+// Get serialized cache
+const serializedData = serializeCache();
+
+// Set cache from serialized data
+deserializeCache(serializedData);
 ```
 
 When processing an HTTP request, generate coreJS polyfill string with this usage:

@@ -5,6 +5,7 @@ const {LOG_ERROR} = require('./constants');
 const {getModules} = require('./module-resolver');
 const {
     addSupported,
+    clearSupported,
     getSupported,
     getBaseFeatureModules
 } = require('./supported-sets');
@@ -109,9 +110,16 @@ async function primeCache(logger) {
 module.exports = {
     getPolyfillString,
     addSupported,
+    clearSupported,
     getSupported,
     primeCache,
+    serializeCache: () => {
+        return webpacknimbuild.serializeCache();
+    },
+    deserializeCache: (cacheString) => {
+        return webpacknimbuild.deserializeCache(cacheString);
+    },
     clearCache: () => {
-        webpacknimbuild.cache.reset();
+        webpacknimbuild.clearCache();
     }
 };
