@@ -32,17 +32,16 @@ const {
     deserializeCache
 } = require('@vrbo/nimbuild-corejs');
 
-// Do any customizations to supported set, like:
-// Add `my-default` coreJS polyfill set
-clearSupported(); // removes `default` support set
-addSupported('my-default', {
+// Initialize supported corejs modules
+initializeSupported(); // use `nimbuild-corejs` defaults
+// or customize supported corejs modules
+initializeSupported('my-default', {
     include: [
-        'es.*',
-        'web.dom-collections.*',
-        'web.dom-collections.iterator',
-        'web.*
+        /* custom core-js modules */
     ],
-    exclude: []
+    exclude: [
+        /* custom core-js modules */
+    ]
 });
 
 // Runs webpacknimbuild.run() on every browser platform

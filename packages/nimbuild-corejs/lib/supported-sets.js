@@ -61,52 +61,62 @@ function clearSupported() {
 }
 
 /**
- * resetSupported()
+ * initializeSupported()
  * Resets `supported` to one support set `default`
+ * @param {object} supportSet - configuration of supported support set
  */
-function resetSupported() {
+function initializeSupported(supportSet) {
     clearSupported();
-    addSupported('default', {
-        include: [
-            'es.symbol',
-            'es.array',
-            'es.date',
-            'es.function',
-            'es.json',
-            'es.map',
-            'es.number',
-            'es.object',
-            'es.promise',
-            'es.regexp',
-            'es.set',
-            'es.string.code-point-at',
-            'es.string.ends-with',
-            'es.string.from-code-point',
-            'es.string.includes',
-            'es.string.iterator',
-            'es.string.match',
-            'es.string.match-all',
-            'es.string.pad-end',
-            'es.string.pad-start',
-            'es.string.repeat',
-            'es.string.replace',
-            'es.string.search',
-            'es.string.split',
-            'es.string.starts-with',
-            'es.string.trim',
-            'es.string.trim-end',
-            'es.string.trim-start',
-            'web.dom-collections.for-each',
-            'web.dom-collections.iterator',
-            'web.queue-microtask',
-            'web.url-search-params'
-        ],
-        exclude: []
-    });
-}
+    if (!supportSet) {
+        supportSet = {
+            default: {
+                include: [
+                    'es.symbol',
+                    'es.array',
+                    'es.date',
+                    'es.function',
+                    'es.json',
+                    'es.map',
+                    'es.number',
+                    'es.object',
+                    'es.promise',
+                    'es.regexp',
+                    'es.set',
+                    'es.string.code-point-at',
+                    'es.string.ends-with',
+                    'es.string.from-code-point',
+                    'es.string.includes',
+                    'es.string.iterator',
+                    'es.string.match',
+                    'es.string.match-all',
+                    'es.string.pad-end',
+                    'es.string.pad-start',
+                    'es.string.repeat',
+                    'es.string.replace',
+                    'es.string.search',
+                    'es.string.split',
+                    'es.string.starts-with',
+                    'es.string.trim',
+                    'es.string.trim-end',
+                    'es.string.trim-start',
+                    'web.dom-collections.for-each',
+                    'web.dom-collections.iterator',
+                    'web.queue-microtask',
+                    'web.url-search-params'
+                ],
+                exclude: []
+            }
+        };
+    }
 
-// Seed the default support set `default`
-resetSupported();
+    // Add supported items
+    Object.keys(supportSet).forEach((set) => {
+        addSupported(set, supportSet[set]);
+    });
+
+    // Return length of support set
+    return Object.keys(supportSet).length;
+}
 
 /**
  * getAvailableCoreJsFeatures()
@@ -163,7 +173,7 @@ function getBaseFeatureModules({include, exclude}) {
 module.exports = {
     addSupported,
     clearSupported,
-    resetSupported,
+    initializeSupported,
     getSupported,
     getBaseFeatureModules
 };

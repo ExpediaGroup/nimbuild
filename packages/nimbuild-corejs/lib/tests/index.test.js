@@ -8,7 +8,8 @@ const {
 const {
     getSupported,
     clearSupported,
-    addSupported
+    addSupported,
+    initializeSupported
 } = require('../supported-sets');
 const mockuas = require('../mocks/ua.mock');
 
@@ -40,6 +41,7 @@ describe('index.js', () => {
 
     beforeEach(() => {
         clearCache();
+        initializeSupported();
         mockFail = false;
         mockLogger = {
             log: jest.fn()

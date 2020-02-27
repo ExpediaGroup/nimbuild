@@ -1,7 +1,7 @@
 const {
     getSupported,
     addSupported,
-    resetSupported,
+    initializeSupported,
     clearSupported,
     getBaseFeatureModules
 } = require('../supported-sets');
@@ -10,6 +10,7 @@ describe('supported-sets.js', () => {
     let mockLogger;
 
     beforeEach(() => {
+        initializeSupported();
         mockLogger = {
             log: jest.fn()
         };
@@ -58,17 +59,28 @@ describe('supported-sets.js', () => {
             expect(getSupported('custom-set')).toMatchSnapshot();
         });
 
-        it('clears featureSets', async () => {
-            const include = ['es.array'];
-            const exclude = ['es.string'];
+        it('initializes with custom featureSet', async () => {
+            initializeSupported({
+                'my-initial-set': {
+                    include: ['es.array', 'es.array'],
+                    exclude: ['es.string']
+                }
+            });
+            expect(getSupported('my-initial-set')).toMatchSnapshot();
+
             const removed = clearSupported();
-            expect(removed).toEqual(2);
+            expect(removed).toEqual(1);
+        });
+
+        it('clears featureSets', async () => {
             addSupported('custom-set', {
-                include,
-                exclude
+                include: ['es.array', 'es.array'],
+                exclude: ['es.string']
             });
             expect(getSupported()).toMatchSnapshot();
-            resetSupported();
+
+            const removed = clearSupported();
+            expect(removed).toEqual(2);
         });
     });
 
