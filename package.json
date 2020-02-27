@@ -9,6 +9,7 @@
         "test": "lerna run test",
         "version:patch": "lerna version patch",
         "version:minor": "lerna version minor",
+        "version:major": "lerna version major",
         "updated": "lerna updated",
         "prepare": "lerna bootstrap",
         "publish": "lerna publish"
