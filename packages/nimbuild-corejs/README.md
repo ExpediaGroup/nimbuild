@@ -35,13 +35,15 @@ const {
 // Initialize supported corejs modules
 initializeSupported(); // use `nimbuild-corejs` defaults
 // or customize supported corejs modules
-initializeSupported('my-default', {
-    include: [
-        /* custom core-js modules */
-    ],
-    exclude: [
-        /* custom core-js modules */
-    ]
+initializeSupported({
+    'my-default': {
+        include: [
+            /* custom core-js modules */
+        ],
+        exclude: [
+            /* custom core-js modules */
+        ]
+    }
 });
 
 // Runs webpacknimbuild.run() on every browser platform
