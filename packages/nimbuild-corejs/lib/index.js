@@ -7,6 +7,7 @@ const {
     addSupported,
     clearSupported,
     getSupported,
+    initializeSupported,
     getBaseFeatureModules
 } = require('./supported-sets');
 const webpacknimbuild = require('@vrbo/nimbuild-webpack')({
@@ -111,6 +112,7 @@ module.exports = {
     getPolyfillString,
     addSupported,
     clearSupported,
+    initializeSupported,
     getSupported,
     primeCache,
     serializeCache: () => {

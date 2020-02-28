@@ -27,6 +27,7 @@ Import module, configure, and prime cache
 const {
     addSupported,
     clearSupported,
+    initializeSupported,
     primeCache,
     serializeCache,
     deserializeCache
