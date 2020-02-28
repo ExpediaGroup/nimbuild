@@ -3,14 +3,12 @@ const {
     clearCache,
     serializeCache,
     deserializeCache,
-    primeCache
-} = require('../index');
-const {
     getSupported,
     clearSupported,
     addSupported,
-    initializeSupported
-} = require('../supported-sets');
+    initializeSupported,
+    primeCache
+} = require('../index');
 const mockuas = require('../mocks/ua.mock');
 
 let mockFail = false;
